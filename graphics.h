@@ -8,6 +8,8 @@
 #include <GL/glut.h>
 #endif
 
+#include <math.h>
+
 #define WHITE 1.0, 1.0, 1.0
 #define BLACK 0.0, 0.0, 0.0
 #define RED 1.0, 0.0, 0.0
@@ -57,9 +59,24 @@ struct Color
     }
     Color(float r, float g, float b) : r(r), g(g), b(b) {}
 };
-
+typedef Color vec3;
 // int *grid;
 Color *grid;
+
+void normalize(vec3 &p)
+{
+    double p1 = 1.0f * p.r * p.r;
+    double p2 = 1.0f * p.g * p.g;
+    double p3 = 1.0f * p.b * p.b;
+    // double mag = p.x * p.x + p.y * p.y + p.z * p.z;
+    double mag = p1 + p2 + p3;
+    if (mag == 0)
+        return;
+    mag = pow(mag, 0.5);
+    p.r /= mag;
+    p.g /= mag;
+    p.b /= mag;
+}
 
 using namespace std;
 // GRID FORMING CODE

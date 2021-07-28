@@ -4,9 +4,13 @@
 struct Point
 {
     int x, y, z;
+    Point() {}
+    Point(int x, int y, int z) : x(x), y(y), z(z)
+    {
+    }
     Point operator+(Point const &obj)
     {
-        return {x + obj.x, y + obj.y, z + obj.y};
+        return {x + obj.x, y + obj.y, z + obj.z};
     }
     Point operator-()
     {
@@ -20,8 +24,12 @@ struct Point
 
 Point &normalize(Point &p)
 {
-    float mag = p.x * p.x + p.y * p.y + p.z * p.z;
-    mag = pow(mag, 0.5);
+    double p1 = 1.0f * p.x * p.x;
+    double p2 = 1.0f * p.y * p.y;
+    double p3 = 1.0f * p.z * p.z;
+    // double mag = p.x * p.x + p.y * p.y + p.z * p.z;
+    double mag = p1 + p2 + p3;
+    mag = sqrt(mag);
     p.x /= mag;
     p.y /= mag;
     p.z /= mag;
